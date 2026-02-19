@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P&K Consulting | Business Funding & Growth</title>
+    <meta name="description"
+        content="Access the capital and credit your business deserves. P&K Consulting helps business owners scale with custom funding solutions.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://api.leadconnectorhq.com">
+
+    <style>
+        :root {
+            --color-black: #0a0a0a;
+            --color-gold: #D4AF37;
+            --color-gold-light: #F4CF57;
+            --color-gold-dark: #AA8C2C;
+            --color-white: #ffffff;
+            --glass-bg: rgba(10, 10, 10, 0.9);
+            --glass-border: rgba(212, 175, 55, 0.3);
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: var(--color-black);
+        }
+
+        body {
+            background-color: transparent;
+            /* Changed from var(--color-black) to allow canvas visibility */
+            color: var(--color-white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 3D Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 1;
+            /* Increased from 0.5 to make stars visible */
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display) !important;
+            color: var(--color-gold) !important;
+            text-transform: uppercase !important;
+            line-height: 1.2 !important;
+        }
+
+        h1 {
+            font-size: 3rem !important;
+            margin-bottom: 1.5rem !important;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        h2 {
+            font-size: 2.5rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        p {
+            margin-bottom: 1.5rem !important;
+            color: #d0d0d0 !important;
+            font-size: 1.05rem !important;
+            line-height: 1.6 !important;
+        }
+
+        /* Buttons & CTAs */
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem !important;
+            background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark)) !important;
+            color: black !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            text-decoration: none !important;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+            transform: translateY(0);
+            border: 1px solid var(--color-gold-light);
+            cursor: pointer;
+            font-size: 1.1rem !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-gold);
+            border: 2px solid var(--color-gold);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--color-white);
+        }
+
+        .btn-lg {
+            padding: 1.5rem 4rem;
+            font-size: 1.4rem;
+        }
+
+        /* Layout */
+        section {
+            padding: 5rem 5%;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+            /* Ensure transparency */
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        /* Nav Button Specifics */
+        nav .btn {
+            padding: 0.5rem 1.5rem !important;
+            /* Smaller size */
+            font-size: 0.9rem !important;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 8rem;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            height: 100%;
+            /* Force height */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.1);
+            background: rgba(30, 30, 30, 0.95);
+        }
+
+        .pain-card {
+            border-left: 3px solid #ff4444;
+            justify-content: flex-start !important;
+            gap: 1rem;
+        }
+
+        .pain-card:hover {
+            border-color: #ff6666;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.1);
+        }
+
+        .service-card {
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+
+        .service-card:hover {
+            border-bottom-color: var(--color-gold);
+        }
+
+        /* Mobile Header Fix */
+        @media (max-width: 430px) {
+            nav {
+                padding: 10px 5%;
+                gap: 10px;
+            }
+
+            .nav-brand {
+                font-size: 1rem;
+            }
+
+            nav .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+        }
+
+        /* Scroll Offset */
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        /* Steps */
+        .step-item {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            align-items: center;
+            text-align: left;
+        }
+
+        .step-num {
+            font-family: var(--font-display) !important;
+            font-size: 5rem !important;
+            font-weight: 700 !important;
+            background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 0px #5e460e) drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.6));
+            line-height: 1;
+            margin-bottom: 0;
+            z-index: 2;
+        }
+
+        footer {
+            background: #000;
+            padding: 1.5rem;
+            /* Reduced padding to fix "too low" look */
+            text-align: center;
+            display: flex;
+            /* Added flex to ensure centering force */
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 17px !important;
+            /* Fixed pixel size for parity */
+            font-family: 'Inter', sans-serif !important;
+            color: #ffffff !important;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-brand {
+            font-family: var(--font-display) !important;
+            font-weight: 700 !important;
+            font-size: 1.5rem !important;
+            /* Matched to Client Funnel */
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        .nav-brand span {
+            color: var(--color-gold);
+        }
+
+        /* Cyber Circuit Divider */
+        .cyber-circuit {
+            height: 2px;
+            width: 100%;
+            margin: 0;
+            border: none;
+            background: rgba(212, 175, 55, 0.2);
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
+        }
+
+        .cyber-circuit::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -30%;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, #D4AF37 50%, #fff 80%, transparent 100%);
+            box-shadow: 0 0 10px #D4AF37, 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: cyberScan 3s linear infinite;
+            will-change: left;
+            transform: translateZ(0);
+        }
+
+        @keyframes cyberScan {
+            0% {
+                left: -30%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Force full width for section dividers */
+        .section-with-divider .cyber-circuit {
+            width: 100vw !important;
+            left: 50% !important;
+            margin-left: -50vw !important;
+        }
+
+        /* Nav positioning */
+        nav .cyber-circuit {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer .cyber-circuit {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .calendar-embed {
+            background: rgba(20, 20, 20, 0.8) !important;
+            border: 1px solid var(--color-gold) !important;
+            min-height: 0 !important;
+            display: block !important;
+            line-height: 0 !important;
+            font-size: 0 !important;
+            color: #555;
+            margin: 3rem auto;
+            max-width: 700px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+            padding: 0 !important;
+            height: auto !important;
+            overflow: hidden !important;
+        }
+
+        .calendar-embed iframe {
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 1020px !important;
+            /* Increased to remove scroll */
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            margin-bottom: -1px !important;
+        }
+
+        .separator {
+            width: 100px;
+            height: 3px;
+            background: var(--color-gold);
+            margin: 2rem auto;
+        }
+
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Speed Rails Divider */
+        .speed-rails {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 1px;
+            /* Minimized height for flush look */
+            overflow: visible;
+            /* Show glow/packet outside container */
+            z-index: 20;
+        }
+
+        .speed-rails::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.4);
+            top: 0;
+            /* Flush at top */
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+        }
+
+        .rail-packet {
+            position: absolute;
+            top: -1px;
+            /* Align with rail */
+            left: -100%;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #fff, var(--color-gold), transparent);
+            box-shadow: 0 0 15px var(--color-gold);
+            animation: railRun 3s linear infinite;
+            will-change: left;
+        }
+
+
+
+        @keyframes railRun {
+            0% {
+                left: -20%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                left: 120%;
+                opacity: 0;
+            }
+        }
+
+        /* Copied Popup & Icon Swap */
+        .contact-item,
+        .contact-link,
+        a[onclick*="copyToClipboard"] {
+            position: relative;
+        }
+
+        .copied-popup {
+            position: absolute;
+            top: -30px;
+            /* Fixed closer position */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--color-gold);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            border: 1px solid var(--glass-border);
+            opacity: 0;
+            animation: popUpFade 2s ease-out forwards;
+            will-change: transform, opacity;
+            white-space: nowrap;
+            z-index: 100;
+        }
+
+        @keyframes popUpFade {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -10px);
+            }
+        }
+    </style>
+</head>
+
+<body><canvas id="bg-canvas"></canvas>
+    <nav><a href="#" class="nav-brand"><span>P&K</span> FUNDING & GROWTH</a><a href="#contact" class="btn">Get
+            Funded</a>
+        <div class="cyber-circuit"></div>
+    </nav>
+    <!-- Hero -->
+    <section class="hero">
+        <h1>We're In The Business Of<br><span
+                style="font-size: 1.5em; text-shadow: 0 0 30px rgba(212,175,55,0.5);">Scaling YOUR Business</span>
+        </h1>
+        <p
+            style="max-width: 100%; font-family: 'Inter', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; font-weight: 400; margin-bottom: 3rem;">
+            Access the capital and credit your business needs to scale with confidence</p>
+        <div style="display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; margin-top: 2rem;"><a
+                href="#contact" class="btn btn-lg">Get Funded Today</a><a href="#solutions"
+                class="btn btn-outline btn-lg">See Options</a></div>
+    </section>
+
+
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <!-- Pain Points -->
+    <section>
+        <div class="text-center" style="margin-bottom: 4rem;">
+            <h2>THE FUNDING ROADBLOCKS</h2>
+            <p>Do any of these sound familiar?</p>
+            <div class="separator"></div>
+        </div>
+        <div class="grid-3">
+            <div class="card pain-card">
+                <h3>DENIED BY BANKS</h3>
+                <p>Strong revenue but still turned down,
+                    leaving you without the capital to grow.</p>
+            </div>
+            <div class="card pain-card">
+                <h3>STARVED CASH FLOW</h3>
+                <p>Invoices take 30–60 days to pay while payroll,
+                    inventory,
+                    and marketing are due now.</p>
+            </div>
+            <div class="card pain-card">
+                <h3>STUCK SELF‑FUNDING</h3>
+                <p>Every move comes from your personal pocket,
+                    capping how far and how fast you can scale.</p>
+            </div>
+        </div>
+        <div class="text-center" style="margin-top: 3rem;">
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">P&K Funding was built to eliminate these barriers
+                and open real paths to capital.</p><a href="#solutions" class="btn">Break Through The
+                Barriers</a>
+        </div>
+    </section>
+    <!-- Solution - Bridge -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+
+    </div>
+
+    <!-- Hook -->
+    <section class="text-center" style="background: rgba(255,255,255,0.02)">
+        <h2 style="font-size: 3rem; color: white;">Build Credit. <span style="color:var(--color-gold);">Access
+                Capital.</span> Scale.</h2><a href="#contact" class="btn btn-outline" style="margin-top: 2rem;">Start
+            Your Growth Journey</a>
+    </section>
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+
+    </div>
+
+    <!-- Solutions -->
+    <section id="solutions">
+
+        <h2 class="text-center">OUR FUNDING ECOSYSTEM</h2>
+        <div class="grid-2" style="margin-top: 4rem;">
+            <div class="card service-card">
+                <h3 style="margin-bottom: 2rem;">BUSINESS CREDIT BUILDING</h3>
+                <p style="margin-bottom: 0.5rem; text-wrap: balance;">We help you build a robust business credit profile
+                    under your EIN that stands on its
+                    own.</p>
+                <div style="text-align: left; margin: 0.5rem 0 1.5rem 0; color: #ccc;">
+                    <div>✓ Separate personal and business</div>
+                    <div>✓ Access higher limits</div>
+                    <div>✓ Vendor tradelines</div>
+                </div><a href="#contact" class="btn btn-outline">Start Building</a>
+            </div>
+            <div class="card service-card">
+                <h3 style="margin-bottom: 2rem;">FUNDING ACCESS</h3>
+                <p style="margin-bottom: 0.5rem; text-wrap: balance;">We connect you with the right funding options for
+                    where your business is right now.
+                </p>
+                <div style="text-align: left; margin: 0.5rem 0 1.5rem 0; color: #ccc;">
+                    <div>✓ Equipment financing</div>
+                    <div>✓ Lines of credit</div>
+                    <div>✓ Working capital</div>
+                </div><a href="#contact" class="btn btn-outline">Check Eligibility</a>
+            </div>
+
+            <div class="card service-card">
+                <h3 style="margin-bottom: 2rem;">STRATEGIC CONSULTING</h3>
+                <p style="margin-bottom: 0.5rem; text-wrap: balance;">Expert guidance to navigate complex financial
+                    landscapes.</p>
+                <div style="text-align: left; margin: 0.5rem 0 1.5rem 0; color: #ccc;">
+                    <div>✓ Growth Strategy</div>
+                    <div>✓ Risk Management</div>
+                    <div>✓ Financial Planning</div>
+                </div><a href="#contact" class="btn btn-outline">Start Strategy</a>
+            </div>
+            <div class="card service-card">
+                <h3 style="margin-bottom: 2rem;">GROWTH INFRASTRUCTURE</h3>
+                <p style="margin-bottom: 0.5rem; text-wrap: balance;">We help you put the systems in place to actually
+                    handle the growth you’re chasing.
+                </p>
+                <div style="text-align: left; margin: 0.5rem 0 1.5rem 0; color: #ccc;">
+                    <div>✓ CRM implementation</div>
+                    <div>✓ Marketing automation</div>
+                    <div>✓ Digital presence</div>
+                </div><a href="#contact" class="btn btn-outline">Scale Operations</a>
+            </div>
+        </div>
+    </section>
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+
+    </div>
+
+    <!-- Why P&K / Stats -->
+    <section class="text-center" style="background: transparent;">
+
+        <div class="grid-2" style="margin-top: 2rem;">
+            <div>
+                <h2 style="margin-bottom: 3rem;">Why Business Owners Trust P&K</h2>
+                <div class="step-item">
+                    <div class="step-num">13K+</div>
+                    <div>
+                        <h3 style="font-size: 1.2rem; color:white;">Businesses Created</h3>
+                        <p>We've walked thousands of entrepreneurs through the initial structuring
+                            phase.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">$140M+</div>
+                    <div>
+                        <h3 style="font-size: 1.2rem; color:white;">Funded</h3>
+                        <p>Real capital deployed to businesses that<br>were previously told "no".</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">10+</div>
+                    <div>
+                        <h3 style="font-size: 1.2rem; color:white;">Years Expertise</h3>
+                        <p>A decade of building relationships with lenders and understanding
+                            underwriting criteria.</p>
+                    </div>
+                </div><a href="#contact" class="btn">Partner With Experts</a>
+            </div>
+            <div
+                style="text-align: center; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                <div
+                    style="font-size: 1.5rem; margin-bottom: 2rem; font-style: italic; color: var(--color-gold); max-width: 400px; text-shadow: 0 0 10px rgba(212,175,55,0.3);">
+                    You built the vision.<br>We’ll help you scale it. </div>
+                <div class="card"
+                    style="display: inline-block; text-align: left; border: 2px solid var(--color-gold); box-shadow: 0 0 30px rgba(212,175,55,0.1);">
+                    <h3>The Funding Path</h3>
+                    <div
+                        style="margin: 1rem 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:0.5rem;">
+                        1. Funding Call</div>
+                    <div
+                        style="margin: 1rem 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:0.5rem;">
+                        2. Custom Strategy</div>
+                    <div style="margin: 1rem 0; font-size: 1.1rem;">3. Execute & Scale</div><a href="#contact"
+                        class="btn" style="width: 100%; margin-top: 1rem;">Schedule
+                        Discovery</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+
+    </div>
+
+    <!-- Urgency -->
+    <section class="text-center">
+
+        <h2>CAPITAL IS YOUR COMPETITIVE ADVANTAGE</h2>
+        <p>The businesses with capital on hand grab the best deals and opportunities
+            first.<br>Stop watching plays you could make go to someone else.</p><a href="#contact"
+            class="btn btn-lg">Scale Your Business Today</a>
+    </section>
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+
+    </div>
+
+    <!-- Contact -->
+    <section id="contact" class="text-center" style="background: transparent; padding-bottom: 0;">
+
+        <h2>Book Your Funding Call</h2>
+        <p>Let's discuss your capital needs and build a roadmap tailored to you.</p>
+
+        <!-- Calendar -->
+        <div class="calendar-embed"
+            style="background: rgba(20, 20, 20, 0.8) !important; border: 1px solid var(--color-gold) !important; border-radius: 8px; overflow: hidden !important; display: block; width: 100% !important; max-width: 700px; margin: 0 auto; padding: 0 !important; position: relative; height: auto !important; min-height: 500px;">
+            <iframe src="https://api.leadconnectorhq.com/widget/booking/menidFy7yLRywprFskZr"
+                style="width: 100%; height: 100%; border: none; overflow: hidden; margin-bottom: -120px !important;"
+                scrolling="yes" id="funding_calendar">
+            </iframe>
+            <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+            <a href="#" onclick="copyToClipboard('(650) 899-7473', this); return false;"
+                style="color: var(--color-gold); text-decoration:none; position: relative;"><span
+                    class="icon-slot">📞</span> (650)
+                899-7473</a>
+            <a href="#" onclick="copyToClipboard('support@pandkconsulting.com', this); return false;"
+                style="color: var(--color-gold); text-decoration:none; position: relative;"><span
+                    class="icon-slot">✉️</span>
+                support@pandkconsulting.com</a>
+        </div>
+        <div style="margin-top: 1rem; text-align: center; font-size: 0.9rem; padding-bottom: 1rem;">
+            <div><span style="color: white;">Office Hours:</span> <span style="color: var(--color-gold);">Mon-Fri, 9am -
+                    6pm (EST)</span></div>
+            <div style="margin-top: 0.5rem;"><span style="color: white;">Customer Service:</span> <span
+                    style="color: var(--color-gold);">24/7</span></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <footer>
+        <div class="container-limit">
+            <div class="footer-content">
+                <div class="footer-line">
+                    &copy; 2026 <span style="color: var(--color-gold);">P&K Consulting</span>. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const iconSlot = element.querySelector('.icon-slot');
+                if (!iconSlot) return;
+
+                const originalIcon = iconSlot.innerText;
+
+                // Swap to Gold Checkmark
+                iconSlot.innerText = '✓';
+                iconSlot.style.color = 'var(--color-gold)';
+                iconSlot.style.fontWeight = 'bold';
+
+                // Create Floating Popup
+                const popup = document.createElement('span');
+                popup.className = 'copied-popup';
+                popup.innerText = 'Copied';
+                element.appendChild(popup);
+
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    iconSlot.innerText = originalIcon;
+                    iconSlot.style.color = ''; // Reset color
+                    iconSlot.style.fontWeight = '';
+                    if (popup.parentNode) popup.parentNode.removeChild(popup);
+                }, 2000);
+            });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 3D Golden Warp Speed (The Fast Lane)
+        const initThree = () => {
+            const canvas = document.querySelector('#bg-canvas');
+            if (!canvas) return;
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas, alpha: true, antialias: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            const scene = new THREE.Scene();
+
+            // Fog for depth fading (reduced density)
+            scene.fog = new THREE.FogExp2(0x0a0a0a, 0.002);
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 100;
+
+            // Create Streaks (Stars)
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+
+            // 2000 particles
+            for (let i = 0; i < 2000; i++) {
+                const x = (Math.random() - 0.5) * 2000;
+                const y = (Math.random() - 0.5) * 2000;
+                const z = (Math.random() - 0.5) * 2000;
+                vertices.push(x, y, z);
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            // Gold Star Material
+            const material = new THREE.PointsMaterial({
+                color: 0xD4AF37,
+                size: 2,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            const starField = new THREE.Points(geometry, material);
+            scene.add(starField);
+
+            // Warp Speed Animation
+            const animate = () => {
+                requestAnimationFrame(animate);
+
+                // Move stars towards camera
+                const positions = starField.geometry.attributes.position.array;
+
+                for (let i = 2; i < positions.length; i += 3) {
+                    positions[i] += 0.5; // Speed of travel (Z-axis)
+
+                    // Reset if passes camera
+                    if (positions[i] > 200) {
+                        positions[i] = -1000; // Send back to distance
+                    }
+                }
+
+                starField.geometry.attributes.position.needsUpdate = true;
+
+                // Slight Rotation
+                starField.rotation.z += 0.002;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', initThree);
+    </script>
+</body>
+
+</html>

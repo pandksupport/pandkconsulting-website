@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P&K Consulting | Financial Growth & Business Solutions</title>
+    <meta name="description"
+        content="Empowering financial freedom with expert credit repair, funding solutions, and business growth consulting.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://api.leadconnectorhq.com">
+
+    <style>
+        :root {
+            /* Colors */
+            --color-black: #0a0a0a;
+            --color-gold: #D4AF37;
+            --color-gold-light: #F4CF57;
+            --color-gold-dark: #AA8C2C;
+            --color-white: #ffffff;
+            --glass-bg: rgba(10, 10, 10, 0.95);
+            --glass-border: rgba(212, 175, 55, 0.3);
+
+            /* Typography System */
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Type Scale */
+            --text-nav: 15px;
+            /* 14-16px requested */
+            --text-h2: 32px;
+            /* 26-32px requested */
+            --text-h3: 20px;
+            /* Card titles */
+            --text-subtitle: 18px;
+            /* 18-20px requested */
+            --text-body: 16px;
+            /* 15-16px requested */
+
+            /* Spacing System */
+            --spacing-section-desktop: 50px;
+            --spacing-section-mobile: 40px;
+            --spacing-title-sub: 12px;
+            --spacing-sub-content: 24px;
+            --spacing-card-element: 10px;
+
+            /* Layout */
+            --max-width: 1140px;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            font-family: var(--font-body);
+            font-size: var(--text-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 3D Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Typography */
+        /* Standardized Typography */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-display);
+            color: var(--color-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-size: var(--text-h2);
+            text-align: center;
+            margin-bottom: var(--spacing-title-sub);
+            position: relative;
+            display: block;
+            /* Fixed */
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .label-white {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Stats Numbers (User Request) */
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: #D4AF37;
+            /* opacity: 0.5; REMOVED to match Client Page */
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #ccc;
+            font-size: var(--text-subtitle);
+            font-weight: 400;
+            /* Regular */
+            max-width: 700px;
+            margin: 0 auto var(--spacing-sub-content);
+            /* 24px */
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            /* border-bottom removed for Cyber Circuit */
+            transition: var(--transition);
+        }
+
+        /* Nav Cyber Border */
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.2);
+            z-index: 1001;
+            overflow: hidden;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 20%, #D4AF37 50%, rgba(212, 175, 55, 0.2) 80%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shineFlow 1.5s linear infinite;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
+            z-index: 1002;
+            will-change: background-position;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: #000;
+            padding: 3rem 5%;
+            text-align: center;
+            font-size: 17px;
+            font-family: 'Inter', sans-serif;
+            color: #666;
+            margin-top: 0;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            /* Or var(--max-width) but keeping simpler here or consistent */
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--color-gold);
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                text-align: center;
+            }
+        }
+
+        /* Footer Cyber Border */
+
+
+
+        /* Speed Rails Divider */
+        .speed-rails {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 1px;
+            overflow: visible;
+            z-index: 20;
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .rail-packet {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #fff, var(--color-gold), transparent);
+            box-shadow: 0 0 15px var(--color-gold);
+            animation: railRun 3s linear infinite;
+            will-change: left;
+        }
+
+        @keyframes railRun {
+            0% {
+                left: -20%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                left: 120%;
+                opacity: 0;
+            }
+        }
+
+        /* Cyber Circuit Divider */
+        .cyber-circuit {
+            height: 2px;
+            width: 100%;
+            margin: 0;
+            border: none;
+            background: rgba(212, 175, 55, 0.2);
+            position: absolute;
+            z-index: 10;
+            overflow: hidden;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
+            left: 0;
+        }
+
+        /* Metallic Text Effect (User Requested) */
+        .metallic-text {
+            font-family: 'Cinzel', serif;
+            font-weight: 800;
+            color: #D4AF37;
+            background: linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            background-size: 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 0px #5e460e) drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.6));
+        }
+
+        .cyber-circuit::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -30%;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, #D4AF37 50%, #fff 80%, transparent 100%);
+            box-shadow: 0 0 10px #D4AF37, 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: cyberScan 3s linear infinite;
+            will-change: left;
+            transform: translateZ(0);
+        }
+
+        @keyframes cyberScan {
+            0% {
+                left: -30%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span {
+            color: var(--color-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+            /* Vertically center links with the button */
+        }
+
+        .nav-links a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            /* Tighter spacing */
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-gold);
+            transition: var(--transition);
+            box-shadow: 0 0 5px var(--color-gold);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            color: var(--color-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--color-gold);
+            background: transparent;
+            color: var(--color-gold);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--color-gold);
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            color: #000000 !important;
+            /* Force black for visibility */
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-fill {
+            background: var(--color-gold);
+            color: var(--color-black);
+        }
+
+        .btn-fill:hover {
+            background: var(--color-gold-light);
+            color: var(--color-black);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 8rem;
+            /* Using global model */
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--color-gold), var(--color-gold-light), var(--color-gold));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #ccc;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 4rem 10%;
+            background: rgba(10, 10, 10, 0.8);
+            /* border-top: 1px solid rgba(212, 175, 55, 0.2); REMOVED */
+            /* border-bottom: 1px solid rgba(212, 175, 55, 0.2); REMOVED */
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--color-gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        /* Section Layout */
+        /* Section Layout Standard */
+        section {
+            padding: var(--spacing-section-desktop) 5%;
+            position: relative;
+            width: 100%;
+            scroll-margin-top: 100px;
+            /* Offset for fixed navbar */
+        }
+
+        /* Container Limit */
+        .container-limit {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: var(--spacing-section-mobile) 5%;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            border-color: var(--color-gold);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+            will-change: opacity;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) translateZ(20px);
+            text-shadow: 0 0 15px var(--color-gold);
+        }
+
+        .service-card h3 {
+            font-size: var(--text-h3);
+            margin-bottom: var(--spacing-card-element);
+            color: #fff;
+            transition: var(--transition);
+            /* Centered alignment handled by parent or specific rules */
+        }
+
+        .service-card:hover h3 {
+            color: var(--color-gold);
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        /* About & Process */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature:hover {
+            border-color: var(--color-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            margin-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        .scroll-icon {
+            color: var(--color-gold);
+            animation: gentleBounce 2s infinite;
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+        }
+
+        @keyframes gentleBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        /* Hero Interaction Hint */
+        .step-hint {
+            font-family: var(--font-display);
+            color: var(--color-gold);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            animation: gentlePulse 3s infinite;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes gentlePulse {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+                text-shadow: 0 0 20px var(--color-gold);
+            }
+        }
+
+        /* Laser Glow Borders (Animated) */
+        .gold-divider-top::before,
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(212, 175, 55, 0.2) 20%,
+                    #D4AF37 50%,
+                    rgba(212, 175, 55, 0.2) 80%,
+                    transparent 100%);
+            background-size: 200% 100%;
+            animation: shineFlow 1.5s linear infinite;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            z-index: 100;
+            border-radius: 1px;
+            opacity: 0.9;
+            will-change: background-position;
+        }
+
+        @keyframes shineFlow {
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        /* Stats Borders */
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 20%, #D4AF37 50%, rgba(212, 175, 55, 0.2) 80%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shineFlow 1.5s linear infinite;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            z-index: 10;
+            will-change: background-position;
+        }
+
+        .stats::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 20%, #D4AF37 50%, rgba(212, 175, 55, 0.2) 80%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shineFlow 1.5s linear infinite;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            z-index: 10;
+            will-change: background-position;
+        }
+
+        /* Contact Text Colors & Uppercase */
+        .contact-text h4 {
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-text p {
+            color: #fff;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+
+        .value-gold {
+            color: var(--color-gold);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .arrow-scroll span {
+            display: block;
+            width: 15px;
+            height: 15px;
+            border-bottom: 2px solid var(--color-gold);
+            border-right: 2px solid var(--color-gold);
+            transform: rotate(45deg);
+            margin: -5px auto;
+            animation: scrollMethod 2s infinite;
+        }
+
+        .arrow-scroll span:nth-child(2) {
+            animation-delay: .2s;
+        }
+
+        .arrow-scroll span:nth-child(3) {
+            animation-delay: .4s;
+        }
+
+        @keyframes scroll {
+            0% {
+                opacity: 1;
+                top: 10px;
+            }
+
+            100% {
+                opacity: 0;
+                top: 30px;
+            }
+        }
+
+        @keyframes scrollMethod {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-5px, -5px);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+        }
+
+        .step-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            /* Styles moved to end of file for priority */
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            /* border/shadow removed to apply only to content box */
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--color-gold);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            z-index: 2;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .step-content {
+            width: 100%;
+            z-index: 1;
+            background: rgba(15, 15, 15, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border-radius: 4px;
+        }
+
+        .step-card:hover .step-content {
+            border-color: var(--color-gold);
+            /* Gold border on hover */
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        /* 3D Arrows */
+        @media (min-width: 900px) {
+            .step-card:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                right: -40px;
+                top: calc(65% - 5px);
+                /* Moved up 5px */
+                transform: translateY(-50%) perspective(500px) rotateY(10deg);
+                font-size: 5rem;
+                font-weight: 900;
+                color: var(--color-gold);
+                font-family: var(--font-display);
+                z-index: 100;
+                /* Ensure high z-index for the arrow itself */
+                text-shadow: 0 0 15px var(--color-gold), 0 0 30px var(--color-gold);
+                animation: floatArrow 2s ease-in-out infinite;
+                pointer-events: none;
+                will-change: transform;
+            }
+
+            /* Fix Z-Index Stacking: Card 1 over Card 2, etc. */
+            .step-card:nth-child(1) {
+                z-index: 3;
+            }
+
+            .step-card:nth-child(2) {
+                z-index: 2;
+            }
+
+            .step-card:nth-child(3) {
+                z-index: 1;
+            }
+        }
+
+        @keyframes floatArrow {
+
+            0%,
+            100% {
+                transform: translateY(-50%) translateX(0) perspective(500px) rotateY(10deg);
+                text-shadow: 0 0 10px var(--color-gold), 0 0 20px var(--color-gold);
+            }
+
+            50% {
+                transform: translateY(-50%) translateX(10px) perspective(500px) rotateY(0deg);
+                text-shadow: 0 0 20px var(--color-gold), 0 0 40px var(--color-gold);
+            }
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(30, 30, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .contact-item:hover {
+            border-color: var(--color-gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* Tooltip for copy */
+        /* Copied Popup & Icon Swap */
+        .contact-item,
+        .contact-link {
+            position: relative;
+        }
+
+        .copied-popup {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--color-gold);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            border: 1px solid var(--glass-border);
+            opacity: 0;
+            animation: popUpFade 2s ease-out forwards;
+            will-change: transform, opacity;
+            white-space: nowrap;
+            z-index: 100;
+        }
+
+        @keyframes popUpFade {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -10px);
+            }
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        .calendar-embed {
+            background: rgba(20, 20, 20, 0.8) !important;
+            /* border: 1px solid var(--color-gold) !important; REMOVED from container */
+            /* border: 1px solid var(--color-gold) !important; REMOVED from container */
+            border: 1px solid var(--color-gold) !important;
+            border-radius: 8px;
+            /* Matching card radius (User Request) */
+            overflow: hidden !important;
+            display: block;
+            width: 100% !important;
+            max-width: 700px;
+            /* Standard 700px Flush Width */
+            margin: 0 auto;
+            padding: 0 !important;
+            overflow: hidden !important;
+            position: relative;
+            height: auto !important;
+            /* Allow Dynamic Height */
+            min-height: 500px;
+        }
+
+        /* Removed Border Overlay */
+
+
+
+        .calendar-embed iframe {
+            position: relative;
+            /* Reverted to relative */
+            top: 0;
+            left: 0;
+            display: block !important;
+            width: 100% !important;
+            /* Matches container exactly */
+            border: none !important;
+            margin: 0 !important;
+            margin-bottom: -4px !important;
+            /* Shrink height by 4px */
+            padding: 0 !important;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 1.5rem;
+            /* Reduced padding to fix "too low" look */
+            text-align: center;
+            display: flex;
+            /* Added flex to ensure centering force */
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 17px;
+            /* Fixed pixel size for parity */
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            margin-top: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        footer span {
+            color: var(--color-gold);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .stats,
+            .services-grid,
+            .features-grid,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Fix Service Card Header Alignment */
+        .service-card h3 {
+            min-height: 3.5rem;
+            /* Forces 2 lines of space */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 3D Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <span>P&K</span> Consulting
+        </a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact" class="btn">Get Started</a>
+        </div>
+        <div class="nav-toggle">☰</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <!-- New Headline -->
+            <h1>A-Z Business Solutions</h1>
+
+            <!-- New Subtitle -->
+            <p
+                style="font-size: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem;">
+                Scale Your Business from start to finish
+            </p>
+
+            <!-- 3 Steps with 3D Effects -->
+            <div class="step-hint">↓ Choose Your Path ↓</div>
+            <div class="hero-steps-container">
+                <a href="https://api.leadconnectorhq.com/widget/booking/nYREJRAD66hSCv9COqAD" target="_blank"
+                    class="hero-step">
+                    <span class="step-num">1.</span>
+                    <span class="step-text">Credit</span>
+                </a>
+                <a href="https://api.leadconnectorhq.com/widget/booking/menidFy7yLRywprFskZr" target="_blank"
+                    class="hero-step">
+                    <span class="step-num">2.</span>
+                    <span class="step-text">Funding</span>
+                </a>
+                <a href="https://api.leadconnectorhq.com/widget/booking/bs7eZ8BMApXsBGXEfKU4" target="_blank"
+                    class="hero-step">
+                    <span class="step-num">3.</span>
+                    <span class="step-text">Marketing</span>
+                </a>
+            </div>
+
+            <div class="hero-btns">
+                <a href="#services" class="btn btn-fill">Explore Services</a>
+                <a href="#contact" class="btn">Start Your Transformation</a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <!-- Scroll Indicator -->
+            <a href="#services" class="scroll-indicator" style="text-decoration: none;">
+                <div class="scroll-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <style>
+            /* Hero Steps 3D Styles */
+            .hero-steps-container {
+                display: flex;
+                justify-content: center;
+                gap: 4rem;
+                margin-bottom: 4rem;
+                perspective: 1000px;
+            }
+
+            .hero-step {
+                font-family: var(--font-display);
+                font-size: 2rem;
+                color: rgba(255, 255, 255, 0.5);
+                /* Dimmed initially */
+                cursor: pointer;
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transform-style: preserve-3d;
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+                /* Added for anchor tag */
+            }
+
+            .hero-step .step-num {
+                color: var(--color-gold);
+                font-size: 1.5rem;
+                opacity: 0.7;
+                transition: inherit;
+            }
+
+            /* Hover Effect */
+            .hero-step:hover {
+                color: #fff;
+                transform: translateZ(50px) scale(1.1);
+                text-shadow: 0 0 20px var(--color-gold), 0 0 40px var(--color-gold);
+            }
+
+            .hero-step:hover .step-num {
+                opacity: 1;
+                text-shadow: 0 0 10px var(--color-gold);
+            }
+
+            @media (max-width: 768px) {
+                .hero-steps-container {
+                    flex-direction: column;
+                    gap: 1.5rem;
+                }
+            }
+
+            /* Contact Copy Feedback */
+            .contact-item {
+                position: relative;
+                cursor: pointer;
+                transition: transform 0.2s;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                overflow: visible !important;
+                /* Ensure popup isn't clipped */
+            }
+
+            .contact-item:active {
+                transform: scale(0.98);
+            }
+
+            .contact-item::after {
+                content: "✓ COPIED!";
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translateY(-50%) translateX(5px);
+                background: transparent !important;
+                z-index: 99999 !important;
+
+                /* Safe Metallic Style (Solid Color + Shadow) */
+                background: transparent !important;
+                -webkit-background-clip: border-box !important;
+                background-clip: border-box !important;
+                -webkit-text-fill-color: initial !important;
+                color: #FFD700 !important;
+                /* Solid Bright Gold */
+                text-shadow:
+                    0 1px 0 #bf953f,
+                    0 2px 0 #b38728,
+                    0 3px 0 #aa771c,
+                    0 4px 5px rgba(0, 0, 0, 0.6) !important;
+                filter: none !important;
+
+                padding: 0 !important;
+                border-radius: 0;
+                font-size: 0.9rem !important;
+                /* Reduced per request */
+                letter-spacing: 1px !important;
+                font-weight: 900 !important;
+                font-family: var(--font-display) !important;
+                /* Ensure display font */
+                text-transform: uppercase;
+                pointer-events: none;
+                opacity: 0;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                white-space: nowrap !important;
+                border: none !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .contact-item.copied {
+                z-index: 1000 !important;
+                margin-right: 30px !important;
+                /* Reduced 5px (was 30px) */
+                transition: margin-right 0.3s ease;
+            }
+
+            .contact-item.copied::after {
+                opacity: 1;
+                transform: translateY(-50%) translateX(2px);
+                /* Tighter spacing (was 10px) */
+            }
+        </style>
+    </section>
+
+    <!-- Stats Section -->
+    <!-- Stats Removed (User Request) -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <section id="services">
+        <h2 class="section-title">Our Expertise</h2>
+        <p class="section-subtitle">Comprehensive solutions tailored for personal and business elevation.</p>
+
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-icon">✦</div>
+                <h3>Credit Repair</h3>
+                <p>We deploy precise dispute strategies tailored to your unique timeline. We help you reach your goal
+                    and get you a car, house, or extra capital.</p>
+            </div>
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Personal Funding</h3>
+                <p>Capitalize on your potential. We guide you to the exact personal funding sources that offer the
+                    highest limits and best terms for your situation.</p>
+            </div>
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-icon">🏛️</div>
+                <h3>Business Funding</h3>
+                <p>Secure the capital your business needs to scale. We specialize in SBA loans, DSCR, equipment
+                    financing, credit card stacking, private money lending, and much more!</p>
+            </div>
+            <!-- Service 4 -->
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Custom CRM & Automations</h3>
+                <p>Automate your success. We implement custom CRM solutions that handle your leads and client
+                    communication on autopilot.</p>
+            </div>
+            <!-- Service 5 -->
+            <div class="service-card">
+                <div class="service-icon">💻</div>
+                <h3>Custom Websites</h3>
+                <p>Your digital headquarters, elevated. We create stunning, conversion-focused websites that position
+                    you as the definitive expert in your field.</p>
+            </div>
+            <!-- Service 6 -->
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Social Marketing</h3>
+                <p>Enhance your social media with our growth tools and engage with your qualified audience with our
+                    social media campaigns. we ensure
+                    your message reaches and resonates with your audience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <section id="about">
+        <h2 class="section-title">About P&K</h2>
+        <p class="section-subtitle">Strategic Repair. Accessed Capital. Scaled Success.</p>
+
+
+        <div class="container-limit">
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="stat-number metallic-text">13K+</div>
+                    <h3>Success Stories</h3>
+                    <p>Our reputation is built on data. With over 13,000 success stories, our methods are rigorously
+                        tested,
+                        proven effective, and consistent.</p>
+                </div>
+                <div class="feature">
+                    <div class="stat-number metallic-text">10+</div>
+                    <h3>Years Expertise</h3>
+                    <p>Your success is managed by 100% US-based industry veterans. We bring deep underwriting knowledge
+                        and
+                        financial expertise to every unique case.</p>
+                </div>
+                <div class="feature">
+                    <div class="stat-number metallic-text">$140M+</div>
+                    <h3>Funded</h3>
+                    <p>Real capital deployed to businesses that were previously told "no". You are never alone in the
+                        process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <section id="process" style="background: rgba(255,255,255,0.02);">
+        <h2 class="section-title">How We Work</h2>
+        <p class="section-subtitle">Your path to success in three simple steps.</p>
+
+        <div class="container-limit">
+            <div class="features-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Consultation</h3>
+                        <p>A precision analysis session where we map<br>your current financial reality against<br>your
+                            ultimate scaling goals.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Strategy</h3>
+                        <p>A strategy designed around you. We customize<br>every step to address your specific
+                            challenges<br>and fast-track the results you care about most.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Execution</h3>
+                        <p>We deploy the strategy with relentless<br>precision, providing transparent tracking
+                            and<br>ongoing optimization until your goals are met.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <section id="contact" style="padding-bottom: 0;">
+        <h2 class="section-title">Partner With The Experts</h2>
+        <p class="section-subtitle">Know your next step? Select the service that fits. Need help choosing? Start with a
+            Discovery Call.</p>
+
+        <!-- 3 Steps (Copied from Hero) -->
+
+        <div class="hero-steps-container" style="margin-bottom: 2rem;">
+            <a href="https://api.leadconnectorhq.com/widget/booking/nYREJRAD66hSCv9COqAD" target="_blank"
+                class="hero-step">
+                <span class="step-num">1.</span>
+                <span class="step-text">Credit</span>
+            </a>
+            <a href="https://api.leadconnectorhq.com/widget/booking/menidFy7yLRywprFskZr" target="_blank"
+                class="hero-step">
+                <span class="step-num">2.</span>
+                <span class="step-text">Funding</span>
+            </a>
+            <a href="https://api.leadconnectorhq.com/widget/booking/bs7eZ8BMApXsBGXEfKU4" target="_blank"
+                class="hero-step">
+                <span class="step-num">3.</span>
+                <span class="step-text">Marketing</span>
+            </a>
+        </div>
+
+        <div class="contact-container container-limit">
+            <!-- 1. Full Calendar (Top) -->
+            <div class="calendar-embed"
+                style="background: transparent; max-width: 700px; margin: 0 auto; overflow: hidden; position: relative; height: auto !important; min-height: 500px; padding: 0 !important;">
+                <iframe src="https://api.leadconnectorhq.com/widget/booking/nHzvguKmuzBZvtL9JlBF"
+                    style="width: 100%; height: 100%; border: none; overflow: hidden; margin-bottom: -45px !important;"
+                    scrolling="yes" id="discovery_calendar">
+                </iframe>
+                <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            </div>
+            <!-- 2. Contact Details (Funding Page Model) -->
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-top: -0.5rem; flex-wrap: wrap;">
+                <a href="#" onclick="copyToClipboard('(650) 899-7473', this, event); return false;"
+                    style="color: var(--color-gold); text-decoration:none; position: relative;"><span
+                        class="icon-slot">📞</span> (650)
+                    899-7473</a>
+                <a href="#" onclick="copyToClipboard('support@pandkconsulting.com', this, event); return false;"
+                    style="color: var(--color-gold); text-decoration:none; position: relative;"><span
+                        class="icon-slot">✉️</span>
+                    support@pandkconsulting.com</a>
+            </div>
+            <div style="margin-top: -2.5rem; text-align: center; font-size: 0.9rem; padding-bottom: 1rem;">
+                <div><span style="color: white;">Office Hours:</span> <span style="color: var(--color-gold);">Mon-Fri,
+                        9am -
+                        6pm (EST)</span></div>
+                <div style="margin-top: 0.5rem;"><span style="color: white;">Customer Service:</span> <span
+                        style="color: var(--color-gold);">24/7</span></div>
+            </div>
+            <!-- 2. Contact Details (Restored Visuals, Global Font) -->
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="speed-rails">
+        <div class="rail-packet"></div>
+    </div>
+    <footer>
+        <div class="container-limit">
+            <div class="footer-content">
+                <div class="footer-line">
+                    &copy; 2026 <span style="color: var(--color-gold);">P&K Consulting</span>. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Copy to Clipboard Functionality ---
+        // --- Copy to Clipboard Functionality ---
+        function copyToClipboard(text, element, event) {
+            if (event) event.preventDefault();
+            navigator.clipboard.writeText(text).then(() => {
+                const iconSlot = element.querySelector('.icon-slot');
+                if (!iconSlot) return;
+
+                const originalIcon = iconSlot.innerText;
+
+                // Swap to Gold Checkmark
+                iconSlot.innerText = '✓';
+                iconSlot.style.color = 'var(--color-gold)';
+                iconSlot.style.fontWeight = 'bold';
+
+                // Create Floating Popup
+                const popup = document.createElement('span');
+                popup.className = 'copied-popup';
+                popup.innerText = 'Copied';
+                element.appendChild(popup);
+
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    iconSlot.innerText = originalIcon;
+                    iconSlot.style.color = ''; // Reset color
+                    iconSlot.style.fontWeight = '';
+                    if (popup.parentNode) popup.parentNode.removeChild(popup);
+                }, 2000);
+            });
+        }
+
+
+        // --- Three.js 3D Background Setup ---
+        const initThreeJS = () => {
+            const canvas = document.querySelector('#bg-canvas');
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            const scene = new THREE.Scene();
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+
+            // Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 700;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 60;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            // Gold Material
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.15,
+                color: 0xD4AF37,
+                transparent: true,
+                opacity: 0.8,
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            // Wireframe Grid (floor)
+            const gridHelper = new THREE.GridHelper(100, 50, 0x333333, 0x111111);
+            gridHelper.position.y = -10;
+            scene.add(gridHelper);
+
+            // Mouse Interaction
+            let mouseX = 0;
+            let mouseY = 0;
+
+            const animateParticles = (event) => {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+            };
+
+            document.addEventListener('mousemove', animateParticles);
+
+            // Animation Loop
+            const clock = new THREE.Clock();
+
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+
+                // Rotate particles slowly
+                particlesMesh.rotation.y = elapsedTime * 0.05;
+                particlesMesh.rotation.x = elapsedTime * 0.02;
+
+                // Subtle grid movement
+                gridHelper.rotation.y = elapsedTime * 0.02;
+
+                // Mouse interaction parallax
+                camera.position.x += (mouseX * 0.01 - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY * 0.01 - camera.position.y) * 0.05;
+
+                renderer.render(scene, camera);
+                window.requestAnimationFrame(animate);
+            };
+
+            animate();
+
+            // Resize Handle
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Initialize Three.js when DOM is ready
+        document.addEventListener('DOMContentLoaded', initThreeJS);
+
+        // --- Smooth Scrolling for Anchor Links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                // Ignore empty links or just "#" (like logo)
+                if (!href || href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- Reveal Animations on Scroll ---
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial hidden state and observe
+        document.querySelectorAll('.service-card, .contact-item, .step-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Copy to Clipboard Function (From Funding Page)
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const iconSlot = element.querySelector('.icon-slot');
+                if (!iconSlot) return;
+
+                const originalIcon = iconSlot.innerText;
+
+                // Swap to Gold Checkmark
+                iconSlot.innerText = '✓';
+                iconSlot.style.color = 'var(--color-gold)';
+                iconSlot.style.fontWeight = 'bold';
+
+                // Create Floating Popup
+                const popup = document.createElement('span');
+                popup.className = 'copied-popup';
+                popup.innerText = 'Copied';
+                element.appendChild(popup);
+
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    iconSlot.innerText = originalIcon;
+                    iconSlot.style.color = ''; // Reset color
+                    iconSlot.style.fontWeight = '';
+                    if (popup.parentNode) popup.parentNode.removeChild(popup);
+                }, 2000);
+            });
+        }
+    </script>
+
+    <!-- Emergency Style Fix for Step Numbers -->
+    <style>
+        div.step-number {
+            font-family: var(--font-display) !important;
+            font-size: 3rem !important;
+            color: var(--color-gold) !important;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            z-index: 2;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            text-align: center !important;
+            width: 100% !important;
+            display: block !important;
+        }
+
+        /* Force Center Headings */
+        .step-content h3 {
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        /* Force Center Descriptions */
+        .step-content p {
+            text-align: center !important;
+            width: 100% !important;
+            text-wrap: balance !important;
+        }
+
+        /* Copied Popup Styles */
+        .copied-popup {
+            position: absolute;
+            top: -30px;
+            /* Adjusted slightly higher (was -20px) */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.95);
+            /* Black/Grey background */
+            color: var(--color-gold);
+            /* Gold text */
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            opacity: 0;
+            animation: popUpFade 2s ease-out forwards;
+            will-change: transform, opacity;
+            white-space: nowrap;
+            z-index: 100;
+        }
+
+        @keyframes popUpFade {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -10px);
+            }
+        }
+    </style>
+</body>
+
+</html>

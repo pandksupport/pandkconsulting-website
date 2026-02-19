@@ -1,0 +1,285 @@
+<!-- 
+    INSTRUCTIONS FOR GHL:
+    1. Add a "Custom HTML/JS" element.
+    2. Paste this code inside.
+    3. Add CSS in Settings > Custom CSS.
+    4. Add JS in Settings > Tracking Code > Footer Code.
+-->
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+    <a href="#" class="nav-logo">
+        <span>P&K</span> Consulting
+    </a>
+    <div class="nav-toggle">☰</div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <!-- New Headline -->
+        <h1>A-Z Business Solutions</h1>
+
+        <!-- New Subtitle -->
+        <p style="font-size: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3rem;">
+            Scale Your Business from start to finish
+        </p>
+
+        <!-- 3 Steps with 3D Effects -->
+        <div class="step-hint">↓ Book Your Consultation ↓</div>
+        <div class="hero-steps-container">
+            <div class="hero-step">
+                <span class="step-num">1.</span>
+                <span class="step-text">Credit</span>
+            </div>
+            <div class="hero-step">
+                <span class="step-num">2.</span>
+                <span class="step-text">Funding</span>
+            </div>
+            <div class="hero-step">
+                <span class="step-num">3.</span>
+                <span class="step-text">Marketing</span>
+            </div>
+        </div>
+
+        <div class="hero-btns">
+            <a href="#services" class="btn btn-fill">Explore Services</a>
+            <a href="#contact" class="btn">Start Your Transformation</a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#services" class="scroll-indicator" style="text-decoration: none;">
+            <span class="scroll-text">SCROLL</span>
+            <div class="arrow-scroll">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </a>
+    </div>
+
+    <style>
+        /* Hero Steps 3D Styles */
+        .hero-steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            perspective: 1000px;
+        }
+
+        .hero-step {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            /* Dimmed initially */
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-step .step-num {
+            color: var(--color-gold);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            transition: inherit;
+        }
+
+        /* Hover Effect */
+        .hero-step:hover {
+            color: #fff;
+            transform: translateZ(50px) scale(1.1);
+            text-shadow: 0 0 20px var(--color-gold), 0 0 40px var(--color-gold);
+        }
+
+        .hero-step:hover .step-num {
+            opacity: 1;
+            text-shadow: 0 0 10px var(--color-gold);
+        }
+
+        @media (max-width: 768px) {
+            .hero-steps-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</section>
+
+<!-- Stats Section -->
+<div class="stats">
+    <div class="stat-item">
+        <span class="stat-number">13,000+</span>
+        <span class="stat-label">Clients Served</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">$3.4M+</span>
+        <span class="stat-label">Funded</span>
+    </div>
+</div>
+
+<!-- Services Section -->
+<section id="services">
+    <h2 class="section-title">Our Expertise</h2>
+    <p class="section-subtitle">Comprehensive solutions tailored for personal and business elevation.</p>
+
+    <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+            <div class="service-icon">✦</div>
+            <h3>Credit Repair</h3>
+            <p>We deploy precise dispute strategies tailored to your unique timeline. We help you reach your goal and
+                get you a car, house, or extra capital.</p>
+        </div>
+        <!-- Service 2 -->
+        <div class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3>Personal Funding</h3>
+            <p>Capitalize on your potential. We guide you to the exact personal funding sources that offer the highest
+                limits and best terms for your situation.</p>
+        </div>
+        <!-- Service 3 -->
+        <div class="service-card">
+            <div class="service-icon">🏛️</div>
+            <h3>Business Funding</h3>
+            <p>Secure the capital your business needs to scale. We specialize in SBA loans, DSCR, equipment financing,
+                credit card stacking, private money lending, and much more!</p>
+        </div>
+        <!-- Service 4 -->
+        <div class="service-card">
+            <div class="service-icon">⚙️</div>
+            <h3>Custom CRM & Automations</h3>
+            <p>Automate your success. We implement custom CRM solutions that handle your leads and client communication
+                on autopilot.</p>
+        </div>
+        <!-- Service 5 -->
+        <div class="service-card">
+            <div class="service-icon">💻</div>
+            <h3>Custom Websites</h3>
+            <p>Your digital headquarters, elevated. We create stunning, conversion-focused websites that position you as
+                the definitive expert in your field.</p>
+        </div>
+        <!-- Service 6 -->
+        <div class="service-card">
+            <div class="service-icon">📈</div>
+            <h3>Social Marketing</h3>
+            <p>Enhance your social media with our growth tools and engage with your qualified audience with our social
+                media campaigns. we ensure
+                your message reaches and resonates with your audience.</p>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <h2 class="section-title">About P&K</h2>
+    <p class="section-subtitle">Strategic Repair. Accessed Capital. Scaled Success.</p>
+
+    <div class="features-grid">
+        <div class="feature">
+            <h3>Proven Results</h3>
+            <p>Our reputation is built on data. With 13,000+ success stories, our methods are rigorously tested, proven
+                effective, and consistent.</p>
+        </div>
+        <div class="feature">
+            <h3>Expert Team</h3>
+            <p>Your success is managed by 100% US-based industry veterans. We bring deep underwriting knowledge and
+                financial expertise to every unique case.</p>
+        </div>
+        <div class="feature">
+            <h3>Dedicated Support</h3>
+            <p>You are never alone in the process. Our white-glove support team ensures you are informed, empowered, and
+                confident throughout your journey.</p>
+        </div>
+    </div>
+</section>
+
+<!-- How We Work -->
+<section id="process" style="background: rgba(255,255,255,0.02);">
+    <h2 class="section-title">How We Work</h2>
+    <p class="section-subtitle">Your path to success in three simple steps.</p>
+
+    <div class="features-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3>Consultation</h3>
+                <p>A precision analysis session where we map your current financial reality against your ultimate
+                    scaling goals.</p>
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3>Strategy</h3>
+                <p>A strategy designed around *you*. We customize every step to address your specific challenges and
+                    fast-track the results you care about most.</p>
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>Execution</h3>
+                <p>We deploy the strategy with relentless precision, providing transparent tracking and ongoing
+                    optimization until your goals are met.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" style="padding-bottom: 0;">
+    <h2 class="section-title">Partner With The Experts</h2>
+    <p class="section-subtitle">Ready to start? Book a call or contact us directly.</p>
+
+    <div class="contact-container container-limit">
+        <!-- 1. Full Calendar (Top) -->
+        <div class="calendar-embed"
+            style="background: transparent; max-width: 700px; margin: 0 auto; overflow: hidden; position: relative; height: auto !important; min-height: 500px; padding: 0 !important;">
+            <iframe src="https://api.leadconnectorhq.com/widget/booking/nHzvguKmuzBZvtL9JlBF"
+                style="width: 100%; height: 100%; border: none; overflow: hidden; margin-bottom: -45px !important;"
+                scrolling="yes" id="discovery_calendar">
+            </iframe>
+            <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+        <!-- 2. Contact Details (Funding Page Model) -->
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-top: -0.5rem; flex-wrap: wrap;">
+            <a href="#" onclick="copyToClipboard('(650) 899-7473', this, event)"
+                style="color: var(--color-gold); text-decoration:none; position: relative;"><span
+                    class="icon-slot">📞</span> (650)
+                899-7473</a>
+            <a href="#" onclick="copyToClipboard('support@pandkconsulting.com', this, event)"
+                style="color: var(--color-gold); text-decoration:none; position: relative;"><span
+                    class="icon-slot">✉️</span>
+                support@pandkconsulting.com</a>
+        </div>
+        <div style="margin-top: -2.5rem; text-align: center; font-size: 0.9rem; padding-bottom: 1rem;">
+            <div><span style="color: white;">Office Hours:</span> <span style="color: var(--color-gold);">Mon-Fri, 9am -
+                    6pm (EST)</span></div>
+            <div style="margin-top: 0.5rem;"><span style="color: white;">Customer Service:</span> <span
+                    style="color: var(--color-gold);">24/7</span></div>
+        </div>
+        <!-- 2. Contact Details (Restored Visuals, Global Font) -->
+
+    </div>
+</section>
+
+<footer>
+    <p>Copyright &copy; 2026 <span>P&K Consulting</span>. All Rights Reserved.</p>
+</footer>
