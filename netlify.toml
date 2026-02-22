@@ -1,0 +1,6 @@
+[build]
+  publish = "Goods/_deploy"
+  command = ""
+
+[build.environment]
+  # No build command needed - this is a static site
